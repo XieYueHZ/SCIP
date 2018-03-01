@@ -1,0 +1,32 @@
+(load "..\\00.scm")
+(define (iterative-improve good-enough? improve)
+        (define (iter guess)
+                (if (good-enough? guess)
+                    guess
+                    (iter (improve guess))))
+;        (lambda (x) (iter x)))
+         iter)
+
+(define (sqrt-iter guess x)
+        (define (improve guess)
+                (average guess (/ x guess)))
+        (define (good-enough? guess)
+                (< (abs (- (/ (improve guess) guess) 1))
+                0.0001))
+        ((iterative-improve good-enough? improve) guess))
+
+(define (fixed-point f guess)
+        (define (improve guess)
+                (f guess))
+        (define (good-enough? guess)
+                (< (abs (- guess (improve guess))) 0.000001))
+        ((iterative-improve good-enough? improve) guess))
+
+(display (sqrt-iter 1.0 9))
+(newline)
+
+(define (sqrt x)
+        (fixed-point (lambda (y) (* (/ 1 2) (+ y (/ x y))))
+                     1.0))
+(display (sqrt 9))
+(exit)

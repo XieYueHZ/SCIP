@@ -1,3 +1,4 @@
+(load "..\\00.scm")
 ;;;sqrt-iter是一个递归的过程，不断调用自身来获取更好的猜测值，直到猜测值满足要求。
 (define (sqrt-iter guess x)
         (display guess)
@@ -15,11 +16,7 @@
         (display "\n")
         (< (abs (- (square guess) x))
           0.001))
-;;;平均值
-(define (average x y)
-        (/ (+ x y) 2))
 
-(define (square x) (* x x))
 
 (define (sqrt x)
         (sqrt-iter 1.0 x))

@@ -1,4 +1,4 @@
-(load "00.scm")
+(load "..\\00.scm")
 
 (define (expmod base e m)
         (cond ((= e 0) 1)

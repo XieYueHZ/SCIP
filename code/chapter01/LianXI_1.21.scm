@@ -1,4 +1,4 @@
-(load "00.scm")
+(load "..\\00.scm")
 ;;;最小质因数
 (define (smallest-divisor n)
         (find-divisor n 2))
