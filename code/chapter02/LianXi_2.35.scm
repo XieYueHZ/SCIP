@@ -1,0 +1,16 @@
+(load "2.2.3_accumulate.scm")
+(define (count-leaves t)
+        (accumulate (lambda (x y) (+ x y)) 
+                    0 
+                    (map (lambda (sub-tree)
+                                 (if (pair? sub-tree)
+                                     (count-leaves sub-tree)
+                                     1))
+                         t)))
+
+(define t (list (list 1 2 3) (list 4 5) 6))
+(define t2 (list 1 2 3))
+(display (count-leaves t))
+(newline)
+(display (count-leaves t2))
+(exit)

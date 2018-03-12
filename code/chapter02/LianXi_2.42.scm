@@ -1,0 +1,41 @@
+(load "2.2.3_flatmap.scm")
+(define (enumerate-interval low high)
+        (if (> low high)
+            (list)
+            (append (list low) (enumerate-interval (+ 1 low) high))))
+
+
+(define (queens board-size)
+        (define (queen-cols k)
+                (if (= k 0)
+                    (list empty-board)
+                    (filter (lambda (positions)
+                                    (safe? k positions))
+                            (flatmap (lambda (rest-of-queens)
+                                             (map (lambda (new-row)
+                                                          (adjoin-position new-row k rest-of-queens))
+                                                  (enumerate-interval 1 board-size)))
+                                     (queen-cols (- k 1))))))
+        (queen-cols board-size))
+
+(define (adjoin-position new-row k rest-of-queens)
+        (cons new-row rest-of-queens))
+
+(define (safe? k positions)
+        (let ((num (car positions)))
+              (define (iter-safe? n items r)
+                      (if (not r)
+                          #f
+                          (if (null? items)
+                              #t
+                              (iter-safe? (+ 1 n) 
+                                          (cdr items) 
+                                          (and (not (= (car items) (+ num n)))
+                                               (not (= (car items) (- num n)))
+                                               (not (= (car items) num)))))))
+              (iter-safe? 1 (cdr positions) #t)))
+
+(define empty-board `())
+(display (queens 8))
+; (display (safe? 3 (list 3 1 1)))
+(exit)

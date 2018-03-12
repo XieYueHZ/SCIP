@@ -1,0 +1,38 @@
+(load "LianXi_2.7.scm")
+(load "LianXi_2.12.scm")
+
+
+(define t1 (make-interval 1 3))
+(define t2 (make-interval 1.5 4.5))
+
+(display "make-interval A/A:")
+(print-interval (div-interval t1 t1))
+(newline)
+(display "make-interval A/B:")
+(print-interval (div-interval t1 t2))
+(newline)
+
+(display "par1:")
+(print-interval (par1 t1 t2))
+(newline)
+(display "par2:")
+(print-interval (par2 t1 t2))
+(newline)
+
+(define t3 (make-center-percent 2 0.5))
+(define t4 (make-center-percent 3 0.5))
+(display "make-center-percent A/A:")
+(print-interval (div-interval t3 t3))
+(newline)
+(display "make-center-percent A/B:")
+(print-interval (div-interval t3 t4))
+(newline)
+
+(define t5 (make-center-percent 2 0.005))
+(define t6 (make-center-percent 3 0.0005))
+(display "make-center-percent 2 A/A:")
+(print-interval (div-interval t5 t5))
+(newline)
+(display "make-center-percent 2 A/B:")
+(print-interval (div-interval t5 t6))
+(exit)

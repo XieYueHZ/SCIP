@@ -5,3 +5,5 @@
 (define (runtime) (real-time))
 
 (define (average a b) (/ (+ a b) 2))
+
+(define nil `())

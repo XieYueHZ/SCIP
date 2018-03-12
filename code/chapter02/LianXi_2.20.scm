@@ -1,0 +1,17 @@
+(define (same-parity x . y)
+        (define (same a b)
+                (if (even? a)
+                    (if (even? b)
+                        (list b)
+                        (list))
+                    (if (even? b)
+                        (list)
+                        (list b))))
+        (define (iter r next)
+                (if (null? next)
+                    r
+                    (iter (append r (same x (car next))) (cdr next))))
+        (iter (list x) y))
+
+(display (same-parity 2 3 4 5))
+(exit)

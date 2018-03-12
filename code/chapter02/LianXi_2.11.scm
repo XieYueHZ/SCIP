@@ -1,0 +1,52 @@
+(load "LianXi_2.7.scm")
+(define (mul-interval a b)
+        (cond ((>= (lower-bound a) 0) 
+                (cond ((>= (lower-bound b) 0)
+                       (make-interval (* (lower-bound a) (lower-bound b))
+                                      (* (upper-bound a) (upper-bound b))))
+                      ((and (< (lower-bound b) 0) (>= (upper-bound b) 0))
+                       (make-interval (* (upper-bound a) (lower-bound b))
+                                      (* (upper-bound a) (upper-bound b))))
+                      ((< (upper-bound b) 0)
+                       (make-interval (* (upper-bound a) (lower-bound b))
+                                      (* (lower-bound a) (upper-bound b))))))
+               ((< (lower-bound a) 0)
+                (cond ((and (>= (upper-bound a) 0) (>= (lower-bound b) 0))
+                       (make-interval (* (lower-bound a) (upper-bound b))
+                                      (* (upper-bound a) (upper-bound b))))
+                      ((and (< (upper-bound a) 0) (>= (lower-bound b) 0))
+                       (make-interval (* (lower-bound a) (upper-bound b))
+                                      (* (upper-bound a) (lower-bound b))))
+                      ((and (>= (upper-bound a) 0) (< (lower-bound b) 0) (>= (upper-bound b) 0))
+                       (make-interval (min (* (lower-bound a) (upper-bound b))
+                                           (* (upper-bound a) (lower-bound b)))
+                                      (max (* (lower-bound a) (lower-bound b))
+                                           (* (upper-bound a) (upper-bound b)))))
+                      ((and (>= (upper-bound a) 0) (< (upper-bound b) 0))
+                       (make-interval (* (upper-bound a) (lower-bound b))
+                                      (* (lower-bound a) (lower-bound b))))
+                      ((and (< (upper-bound a) 0) (< (lower-bound b) 0) (>= (upper-bound b) 0))
+                       (make-interval (* (lower-bound a) (lower-bound b))
+                                      (* (lower-bound a) (upper-bound b))))
+                      ((and (< (upper-bound a) 0) (< (upper-bound b) 0))
+                       (make-interval (* (lower-bound a) (lower-bound b))
+                                      (* (upper-bound a) (upper-bound b))))))))
+;;8,15
+(print-interval (mul-interval (make-interval 2 3) (make-interval 4 5)))
+;;-12,15
+(print-interval (mul-interval (make-interval 2 3) (make-interval -4 5)))
+;;-15,-8
+(print-interval (mul-interval (make-interval 2 3) (make-interval -4 -5)))
+;;-10,15
+(print-interval (mul-interval (make-interval -2 3) (make-interval 4 5)))
+;;-12,15
+(print-interval (mul-interval (make-interval -2 3) (make-interval -4 5)))
+;;-15,10
+(print-interval (mul-interval (make-interval -2 3) (make-interval -4 -5)))
+;;-15,-8
+(print-interval (mul-interval (make-interval -2 -3) (make-interval 4 5)))
+;;-15,12
+(print-interval (mul-interval (make-interval -2 -3) (make-interval -4 5)))
+;;8,15
+(print-interval (mul-interval (make-interval -2 -3) (make-interval -4 -5)))
+(exit)
